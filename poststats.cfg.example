@@ -1,0 +1,34 @@
+# __          _______  _  __
+# \ \        / /  __ \| |/ /
+#  \ \  /\  / /| |  | | ' / 
+#   \ \/  \/ / | |  | |  <  
+#    \  /\  /  | |__| | . \ 
+#     \/  \/   |_____/|_|\_\
+# 
+# Copyright (c) 2017 Webdesign Kronberg.
+# ----------------------------------------------------------------------------
+# This file contains the Poststats configuration.
+# ----------------------------------------------------------------------------
+
+# The logfiles to be analyzed
+LOGFILES=(
+    "/var/log/mail.log"
+    "/var/log/clamav/clamav-milter.log"
+)
+
+# ----------------------------------------------------------------------------
+# E-Mail Settings
+#
+# Possible Formats for Sender and Reciever:
+# Address only: "john@doe.com"
+# Name and Address: "John Doe<john@doe.com>"
+# ----------------------------------------------------------------------------
+
+# Subject
+MAILSUBJECT="POSTFIX Mailserver Daily Statistics Report"
+
+# Reciever
+MAILTO="John Doe<john@doe.com>"
+
+# Sender
+MAILFROM="POSTSTATS<poststats@example.com>"
