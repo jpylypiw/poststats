@@ -10,7 +10,7 @@
 # This file contains the e-mail template.
 # ----------------------------------------------------------------------------
 
-body=`cat <<TEMPLATE
+body=$(cat <<TEMPLATE
 <html>
 
 <head>
@@ -321,4 +321,4 @@ body=`cat <<TEMPLATE
     </table>
 </body>
 TEMPLATE
-`
+)

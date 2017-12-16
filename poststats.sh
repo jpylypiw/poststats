@@ -59,41 +59,41 @@ BOUNCEDMAILCOUNT=0
 
 function analyzeFile {
     # CLAMAV
-    let CLEANCOUNT=$CLEANCOUNT+`egrep -nc ".*$LOGDATE.*Clean message.*" $1`
-    let INFECTEDCOUNT=$INFECTEDCOUNT+`egrep -nc ".*$LOGDATE.*infected by.*" $1`
+    let CLEANCOUNT=$CLEANCOUNT+$(egrep -nc ".*$LOGDATE.*Clean message.*" $1)
+    let INFECTEDCOUNT=$INFECTEDCOUNT+$(egrep -nc ".*$LOGDATE.*infected by.*" $1)
 
     # IMAP
-    let IMAPLOGINCOUNT=$IMAPLOGINCOUNT+`egrep -nc ".*$LOGDATE.*imap-login.*" $1`
-    let IMAPLOGINFAILCOUNT=$IMAPLOGINFAILCOUNT+`egrep -nc ".*$LOGDATE.*imap-login: Disconnected.*" $1`
-    let IMAPIPV4LOGINCOUNT=$IMAPIPV4LOGINCOUNT+`egrep -nc ".*$LOGDATE.*imap-login.*lip=[1-9]{1,3}\..*" $1`
-    let IMAPIPV6LOGINCOUNT=$IMAPIPV6LOGINCOUNT+`egrep -nc ".*$LOGDATE.*imap-login.*lip=[0-9a-z]{0,4}\:.*" $1`
-    let IMAPWEBLOGINCOUNT=$IMAPWEBLOGINCOUNT+`egrep -nc ".*$LOGDATE.*imap-login.*method=CRAM-MD5.*" $1`
+    let IMAPLOGINCOUNT=$IMAPLOGINCOUNT+$(egrep -nc ".*$LOGDATE.*imap-login.*" $1)
+    let IMAPLOGINFAILCOUNT=$IMAPLOGINFAILCOUNT+$(egrep -nc ".*$LOGDATE.*imap-login: Disconnected.*" $1)
+    let IMAPIPV4LOGINCOUNT=$IMAPIPV4LOGINCOUNT+$(egrep -nc ".*$LOGDATE.*imap-login.*lip=[1-9]{1,3}\..*" $1)
+    let IMAPIPV6LOGINCOUNT=$IMAPIPV6LOGINCOUNT+$(egrep -nc ".*$LOGDATE.*imap-login.*lip=[0-9a-z]{0,4}\:.*" $1)
+    let IMAPWEBLOGINCOUNT=$IMAPWEBLOGINCOUNT+$(egrep -nc ".*$LOGDATE.*imap-login.*method=CRAM-MD5.*" $1)
 
     # POP3
-    let POP3LOGINCOUNT=$POP3LOGINCOUNT+`egrep -nc ".*$LOGDATE.*pop3-login.*" $1`
-    let POP3LOGINFAILCOUNT=$POP3LOGINFAILCOUNT+`egrep -nc ".*$LOGDATE.*pop3-login: Disconnected.*" $1`
-    let POP3IPV4LOGINCOUNT=$POP3IPV4LOGINCOUNT+`egrep -nc ".*$LOGDATE.*pop3-login.*lip=[1-9]{1,3}\..*" $1`
-    let POP3IPV6LOGINCOUNT=$POP3IPV6LOGINCOUNT+`egrep -nc ".*$LOGDATE.*pop3-login.*lip=[0-9a-z]{0,4}\:.*" $1`
-    let POP3WEBLOGINCOUNT=$POP3WEBLOGINCOUNT+`egrep -nc ".*$LOGDATE.*pop3-login.*method=CRAM-MD5.*" $1`
+    let POP3LOGINCOUNT=$POP3LOGINCOUNT+$(egrep -nc ".*$LOGDATE.*pop3-login.*" $1)
+    let POP3LOGINFAILCOUNT=$POP3LOGINFAILCOUNT+$(egrep -nc ".*$LOGDATE.*pop3-login: Disconnected.*" $1)
+    let POP3IPV4LOGINCOUNT=$POP3IPV4LOGINCOUNT+$(egrep -nc ".*$LOGDATE.*pop3-login.*lip=[1-9]{1,3}\..*" $1)
+    let POP3IPV6LOGINCOUNT=$POP3IPV6LOGINCOUNT+$(egrep -nc ".*$LOGDATE.*pop3-login.*lip=[0-9a-z]{0,4}\:.*" $1)
+    let POP3WEBLOGINCOUNT=$POP3WEBLOGINCOUNT+$(egrep -nc ".*$LOGDATE.*pop3-login.*method=CRAM-MD5.*" $1)
 
     # CONNECTION
-    let CONNECTIONCOUNT=$CONNECTIONCOUNT+`egrep -nc ".*$LOGDATE.*connect from.*" $1`
-    let CONNECTIONIPV4COUNT=$CONNECTIONIPV4COUNT+`egrep -nc ".*$LOGDATE.*connect from.*\[[1-9]{1,3}\..*" $1`
-    let CONNECTIONIPV6COUNT=$CONNECTIONIPV6COUNT+`egrep -nc ".*$LOGDATE.*connect from.*\[[0-9a-z]{0,4}\:.*" $1`
-    let RELAYDENIED=$RELAYDENIED+`egrep -nc ".*$LOGDATE.*NOQUEUE: reject.*Relay access denied.*" $1`
-    let NOPTRCOUNT=$NOPTRCOUNT+`egrep -nc ".*$LOGDATE.*NOQUEUE: reject.*cannot find your reverse hostname.*" $1`
+    let CONNECTIONCOUNT=$CONNECTIONCOUNT+$(egrep -nc ".*$LOGDATE.*connect from.*" $1)
+    let CONNECTIONIPV4COUNT=$CONNECTIONIPV4COUNT+$(egrep -nc ".*$LOGDATE.*connect from.*\[[1-9]{1,3}\..*" $1)
+    let CONNECTIONIPV6COUNT=$CONNECTIONIPV6COUNT+$(egrep -nc ".*$LOGDATE.*connect from.*\[[0-9a-z]{0,4}\:.*" $1)
+    let RELAYDENIED=$RELAYDENIED+$(egrep -nc ".*$LOGDATE.*NOQUEUE: reject.*Relay access denied.*" $1)
+    let NOPTRCOUNT=$NOPTRCOUNT+$(egrep -nc ".*$LOGDATE.*NOQUEUE: reject.*cannot find your reverse hostname.*" $1)
 
     # BLACKHOLE
-    let BLACKHOLEDMAILCOUNT=$BLACKHOLEDMAILCOUNT+`egrep -nc ".*$LOGDATE.*Service unavailable.*blocked using.*" $1`
+    let BLACKHOLEDMAILCOUNT=$BLACKHOLEDMAILCOUNT+$(egrep -nc ".*$LOGDATE.*Service unavailable.*blocked using.*" $1)
 
     # SPAMASSASSIN
-    let TESTEDMAILCOUNT=$TESTEDMAILCOUNT+`egrep -nc ".*$LOGDATE.*spamd: checking message.*" $1`
-    let SPAMCOUNT=$SPAMCOUNT+`egrep -nc ".*$LOGDATE.*spamd: identified spam.*" $1`
-    let HAMCOUNT=$HAMCOUNT+`egrep -nc ".*$LOGDATE.*spamd: clean message.*" $1`
+    let TESTEDMAILCOUNT=$TESTEDMAILCOUNT+$(egrep -nc ".*$LOGDATE.*spamd: checking message.*" $1)
+    let SPAMCOUNT=$SPAMCOUNT+$(egrep -nc ".*$LOGDATE.*spamd: identified spam.*" $1)
+    let HAMCOUNT=$HAMCOUNT+$(egrep -nc ".*$LOGDATE.*spamd: clean message.*" $1)
 
     # OUTGOING
-    let SENTMAILCOUNT=$SENTMAILCOUNT+`egrep -nc ".*$LOGDATE.*postfix/smtp.*status=sent.*" $1`
-    let BOUNCEDMAILCOUNT=$BOUNCEDMAILCOUNT+`egrep -nc ".*$LOGDATE.*postfix/smtp.*status=bounced.*" $1`
+    let SENTMAILCOUNT=$SENTMAILCOUNT+$(egrep -nc ".*$LOGDATE.*postfix/smtp.*status=sent.*" $1)
+    let BOUNCEDMAILCOUNT=$BOUNCEDMAILCOUNT+$(egrep -nc ".*$LOGDATE.*postfix/smtp.*status=bounced.*" $1)
 }
 
 for logfile in "${LOGFILES[@]}"
