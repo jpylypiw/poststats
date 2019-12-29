@@ -1,18 +1,3 @@
-#!/bin/bash
-
-# __          _______  _  __
-# \ \        / /  __ \| |/ /
-#  \ \  /\  / /| |  | | ' / 
-#   \ \/  \/ / | |  | |  <  
-#    \  /\  /  | |__| | . \ 
-#     \/  \/   |_____/|_|\_\
-# 
-# Copyright (c) 2017 Webdesign Kronberg.
-# ----------------------------------------------------------------------------
-# This file contains the e-mail template.
-# ----------------------------------------------------------------------------
-
-body=$(cat <<TEMPLATE
 <html>
 
 <head>
@@ -320,7 +305,33 @@ body=$(cat <<TEMPLATE
             <td class=left>Clean E-Mails</td>
             <td>$HAMCOUNT</td>
         </tr>
+
+        <tr>
+            <th colspan=2>RRPAMD</th>
+        </tr>
+        <tr class="even0">
+            <td class=left>E-Mails with status rejected</td>
+            <td>$RSPAMD_REJECTED</td>
+        </tr>
+        <tr class="odd0">
+            <td class=left>E-Mails with status add header</td>
+            <td>$RSPAMD_ADD_HEADER</td>
+        </tr>
+        <tr class="even0">
+            <td class=left>E-Mails with status greylist</td>
+            <td>$RSPAMD_GREYLIST</td>
+        </tr>
+        <tr class="odd0">
+            <td class=left>E-Mails with status no action</td>
+            <td>$RSPAMD_NO_ACTION</td>
+        </tr>
+        <tr class="even0">
+            <td class=left>E-Mails with status soft reject</td>
+            <td>$RSPAMD_SOFT_REJECT</td>
+        </tr>
+        <tr class="odd0">
+            <td class=left>E-Mails with status rewrite subject</td>
+            <td>$RSPAMD_REWRITE_SUBJECT</td>
+        </tr>
     </table>
 </body>
-TEMPLATE
-)

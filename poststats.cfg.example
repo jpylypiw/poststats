@@ -5,7 +5,7 @@
 #    \  /\  /  | |__| | . \ 
 #     \/  \/   |_____/|_|\_\
 # 
-# Copyright (c) 2017 Webdesign Kronberg.
+# Copyright (c) 2019 Webdesign Kronberg.
 # ----------------------------------------------------------------------------
 # This file contains the Poststats configuration.
 # ----------------------------------------------------------------------------
@@ -13,6 +13,8 @@
 # The logfiles to be analyzed
 LOGFILES=(
     "/var/log/mail.log"
+    "/var/log/mail.log.1"
+    "/var/log/rspamd/rspamd.log.1"
     "/var/log/clamav/clamav-milter.log"
 )
 
@@ -21,14 +23,14 @@ LOGFILES=(
 #
 # Possible Formats for Sender and Reciever:
 # Address only: "john@doe.com"
-# Name and Address: "John Doe<john@doe.com>"
+# Name and Address: "John Doe <john@doe.com>"
 # ----------------------------------------------------------------------------
 
 # Subject
 MAILSUBJECT="POSTFIX Mailserver Daily Statistics Report"
 
 # Reciever
-MAILTO="John Doe<john@doe.com>"
+MAILTO="John Doe <john@doe.com>"
 
 # Sender
-MAILFROM="POSTSTATS<poststats@example.com>"
+MAILFROM="POSTSTATS <poststats@example.com>"
