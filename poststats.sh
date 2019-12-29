@@ -16,8 +16,8 @@
 # Basic Variables and Configuration
 SCRIPTPATH=$(dirname $0)
 LOGDATE=$(date -d "yesterday" +"%b %e")
-IPV4ADDRESS=$(/sbin/ifconfig eth0 | grep 'inet ' | awk '{ print $2}')
-IPV6ADDRESS=$(/sbin/ifconfig eth0 | grep '.*inet6 .*global.*' | awk '{ print $2}')
+IPV4ADDRESS=$(/sbin/ifconfig | grep 'inet ' | awk '{ print $2}')
+IPV6ADDRESS=$(/sbin/ifconfig | grep '.*inet6 .*global.*' | awk '{ print $2}')
 source "$SCRIPTPATH/poststats.cfg"
 
 # CLAMAV
