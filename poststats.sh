@@ -109,11 +109,11 @@ function analyzeFile() {
 
     # RSPAMD
     let RSPAMD_REJECTED=$RSPAMD_REJECTED+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(reject\)\:.*" "$1")
-    let RSPAMD_ADD_HEADER=$RSPAMD_ADD_HEADER+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(add header)\:.*" "$1")
-    let RSPAMD_GREYLIST=$RSPAMD_GREYLIST+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(greylist)\:.*" "$1")
-    let RSPAMD_NO_ACTION=$RSPAMD_NO_ACTION+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(no action)\:.*" "$1")
-    let RSPAMD_SOFT_REJECT=$RSPAMD_SOFT_REJECT+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(soft reject)\:.*" "$1")
-    let RSPAMD_REWRITE_SUBJECT=$RSPAMD_REWRITE_SUBJECT+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(rewrite subject)\:.*" "$1")
+    let RSPAMD_ADD_HEADER=$RSPAMD_ADD_HEADER+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(add header\)\:.*" "$1")
+    let RSPAMD_GREYLIST=$RSPAMD_GREYLIST+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(greylist\)\:.*" "$1")
+    let RSPAMD_NO_ACTION=$RSPAMD_NO_ACTION+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(no action\)\:.*" "$1")
+    let RSPAMD_SOFT_REJECT=$RSPAMD_SOFT_REJECT+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(soft reject\)\:.*" "$1")
+    let RSPAMD_REWRITE_SUBJECT=$RSPAMD_REWRITE_SUBJECT+$(grep -Pnc "$LOGDATERSPAMD.*default\: . \(rewrite subject\)\:.*" "$1")
 }
 
 for logfile in "${LOGFILES[@]}"; do
