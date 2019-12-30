@@ -14,8 +14,10 @@
 LOGFILES=(
     "/var/log/mail.log"
     "/var/log/mail.log.1"
+    "/var/log/rspamd/rspamd.log"
     "/var/log/rspamd/rspamd.log.1"
     "/var/log/clamav/clamav-milter.log"
+    "/var/log/clamav/clamav-milter.log.1"
 )
 
 # ----------------------------------------------------------------------------
