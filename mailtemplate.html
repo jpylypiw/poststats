@@ -158,39 +158,43 @@
 <body>
     <table>
         <tr class="even0">
-            <td class=left>Host</td>
+            <td class=left>Hostname</td>
             <td>$(hostname)</td>
         </tr>
         <tr class="odd0">
-            <td class=left>Log Date</td>
+            <td class=left>Report Date</td>
             <td>$(date -d "yesterday" +"%A %B %d %Y")</td>
         </tr>
         <tr class="even0">
-            <td class=left>IP-Address</td>
+            <td class=left>IP-Addresses</td>
             <td>$IPV4ADDRESS $IPV6ADDRESS</td>
         </tr>
         <tr>
             <th colspan=2>Service State</th>
         </tr>
         <tr class="even0">
-            <td class=left>Postfix Service</td>
+            <td class=left>Postfix</td>
             <td>$POSTFIX</td>
         </tr>
         <tr class="odd0">
-            <td class=left>Spamassassin Service</td>
+            <td class=left>Spamassassin</td>
             <td>$SPAMASSASSIN</td>
         </tr>
         <tr class="even0">
-            <td class=left>ClamAV Service</td>
+            <td class=left>ClamAV</td>
             <td>$CLAMAV</td>
         </tr>
         <tr class="odd0">
-            <td class=left>Dovecot Service</td>
+            <td class=left>Dovecot</td>
             <td>$DOVECOT</td>
         </tr>
         <tr class="even0">
-            <td class=left>OpenDKIM Service</td>
+            <td class=left>OpenDKIM</td>
             <td>$OPENDKIM</td>
+        </tr>
+        <tr class="even0">
+            <td class=left>RSPAMD</td>
+            <td>$RSPAMD</td>
         </tr>
         <tr>
             <th colspan=2>ClamAV</th>
@@ -223,7 +227,7 @@
             <td>$IMAPIPV6LOGINCOUNT</td>
         </tr>
         <tr class="even0">
-            <td class=left>IMAP Logins using WebInterface</td>
+            <td class=left>IMAP Logins from localhost (e.g. webmailer)</td>
             <td>$IMAPLOCALLOGINCOUNT</td>
         </tr>
         <tr>
@@ -246,7 +250,7 @@
             <td>$POP3IPV6LOGINCOUNT</td>
         </tr>
         <tr class="even0">
-            <td class=left>POP3 Logins using WebInterface</td>
+            <td class=left>POP3 Logins from localhost (e.g. webmailer)</td>
             <td>$POP3LOCALLOGINCOUNT</td>
         </tr>
         <tr>
@@ -311,7 +315,7 @@
         </tr>
 
         <tr>
-            <th colspan=2>RRPAMD</th>
+            <th colspan=2>RSPAMD</th>
         </tr>
         <tr class="even0">
             <td class=left>E-Mails with status rejected</td>
