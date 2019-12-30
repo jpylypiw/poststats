@@ -151,7 +151,7 @@ fi
 
 # load E-Mail Template from HTML file and replace all variables in the template
 TEMPLATE=$(eval "cat << EOF
-$(<mailtemplate.html)
+$(<"$SCRIPTPATH"/mailtemplate.html)
 EOF
 ")
 
