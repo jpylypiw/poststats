@@ -18,8 +18,8 @@
 SCRIPTPATH=$(dirname "$0")
 LOGDATE=$(date -d "yesterday" +"%b %e")
 LOGDATERSPAMD=$(date -d "yesterday" +"%Y-%m-%d")
-IPV4ADDRESS=$(/sbin/ifconfig | grep 'inet ' | awk '{ print $2}')
-IPV6ADDRESS=$(/sbin/ifconfig | grep '.*inet6 .*global.*' | awk '{ print $2}')
+IPV4ADDRESS=$(/sbin/ip addr show | grep 'inet ' | grep -v ' lo' | awk '{ print $2}')
+IPV6ADDRESS=$(/sbin/ip addr show | grep '.*inet6 .*global.*' | awk '{ print $2}')
 source "$SCRIPTPATH/poststats.cfg"
 
 # CLAMAV
