@@ -31,14 +31,14 @@ IMAPLOGINCOUNT=0
 IMAPLOGINFAILCOUNT=0
 IMAPIPV4LOGINCOUNT=0
 IMAPIPV6LOGINCOUNT=0
-IMAPWEBLOGINCOUNT=0
+IMAPLOCALLOGINCOUNT=0
 
 # POP3
 POP3LOGINCOUNT=0
 POP3LOGINFAILCOUNT=0
 POP3IPV4LOGINCOUNT=0
 POP3IPV6LOGINCOUNT=0
-POP3WEBLOGINCOUNT=0
+POP3LOCALLOGINCOUNT=0
 
 # CONNECTION
 CONNECTIONCOUNT=0
@@ -46,6 +46,7 @@ CONNECTIONIPV4COUNT=0
 CONNECTIONIPV6COUNT=0
 RELAYDENIED=0
 NOPTRCOUNT=0
+NODOMAINCOUNT=0
 
 # BLACKHOLE
 BLACKHOLEDMAILCOUNT=0
@@ -73,32 +74,33 @@ function analyzeFile() {
     let INFECTEDCOUNT=$INFECTEDCOUNT+$(grep -Enc ".*$LOGDATE.*infected by.*" "$1")
 
     # IMAP
-    let IMAPLOGINCOUNT=$IMAPLOGINCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login.*" "$1")
-    let IMAPLOGINFAILCOUNT=$IMAPLOGINFAILCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login: Disconnected.*" "$1")
-    let IMAPIPV4LOGINCOUNT=$IMAPIPV4LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login.*lip=[1-9]{1,3}\..*" "$1")
-    let IMAPIPV6LOGINCOUNT=$IMAPIPV6LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login.*lip=[0-9a-z]{0,4}\:.*" "$1")
-    let IMAPWEBLOGINCOUNT=$IMAPWEBLOGINCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login.*method=CRAM-MD5.*" "$1")
+    let IMAPLOGINCOUNT=$IMAPLOGINCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login\: Login\: .*" "$1")
+    let IMAPLOGINFAILCOUNT=$IMAPLOGINFAILCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login\: Disconnected.*" "$1")
+    let IMAPIPV4LOGINCOUNT=$IMAPIPV4LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login\: Login\: .*rip=[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.*" "$1")
+    let IMAPIPV6LOGINCOUNT=$IMAPIPV6LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login\: Login\: .*rip=[0-9a-z]{0,4}\:[0-9a-z]{0,4}\:[0-9a-z]{1,4}.*" "$1")
+    let IMAPLOCALLOGINCOUNT=$IMAPLOCALLOGINCOUNT+$(grep -Enc ".*$LOGDATE.*imap-login\: Login\: .*rip=(?<rip>[\.\:0-9]{3,}).*lip=(?<lip>[\.\:0-9]+)?\k'rip'.*" "$1")
 
     # POP3
-    let POP3LOGINCOUNT=$POP3LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login.*" "$1")
+    let POP3LOGINCOUNT=$POP3LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login\: Login\: .*" "$1")
     let POP3LOGINFAILCOUNT=$POP3LOGINFAILCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login: Disconnected.*" "$1")
-    let POP3IPV4LOGINCOUNT=$POP3IPV4LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login.*lip=[1-9]{1,3}\..*" "$1")
-    let POP3IPV6LOGINCOUNT=$POP3IPV6LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login.*lip=[0-9a-z]{0,4}\:.*" "$1")
-    let POP3WEBLOGINCOUNT=$POP3WEBLOGINCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login.*method=CRAM-MD5.*" "$1")
+    let POP3IPV4LOGINCOUNT=$POP3IPV4LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login\: Login\: .*rip=[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.*" "$1")
+    let POP3IPV6LOGINCOUNT=$POP3IPV6LOGINCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login\: Login\: .*rip=[0-9a-z]{0,4}\:[0-9a-z]{0,4}\:[0-9a-z]{1,4}.*" "$1")
+    let POP3LOCALLOGINCOUNT=$POP3LOCALLOGINCOUNT+$(grep -Enc ".*$LOGDATE.*pop3-login\: Login\: .*rip=(?<rip>[\.\:0-9]{3,}).*lip=(?<lip>[\.\:0-9]+)?\k'rip'.*" "$1")
 
     # CONNECTION
-    let CONNECTIONCOUNT=$CONNECTIONCOUNT+$(grep -Enc ".*$LOGDATE.*connect from.*" "$1")
-    let CONNECTIONIPV4COUNT=$CONNECTIONIPV4COUNT+$(grep -Enc ".*$LOGDATE.*connect from.*\[[1-9]{1,3}\..*" "$1")
-    let CONNECTIONIPV6COUNT=$CONNECTIONIPV6COUNT+$(grep -Enc ".*$LOGDATE.*connect from.*\[[0-9a-z]{0,4}\:.*" "$1")
+    let CONNECTIONCOUNT=$CONNECTIONCOUNT+$(grep -Enc ".*$LOGDATE.* connect from.*" "$1")
+    let CONNECTIONIPV4COUNT=$CONNECTIONIPV4COUNT+$(grep -Enc ".*$LOGDATE.* connect from.*[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.*" "$1")
+    let CONNECTIONIPV6COUNT=$CONNECTIONIPV6COUNT+$(grep -Enc ".*$LOGDATE.* connect from.*[0-9a-z]{0,4}\:[0-9a-z]{0,4}\:[0-9a-z]{1,4}.*" "$1")
     let RELAYDENIED=$RELAYDENIED+$(grep -Enc ".*$LOGDATE.*NOQUEUE: reject.*Relay access denied.*" "$1")
     let NOPTRCOUNT=$NOPTRCOUNT+$(grep -Enc ".*$LOGDATE.*NOQUEUE: reject.*cannot find your reverse hostname.*" "$1")
+    let NODOMAINCOUNT=$NODOMAINCOUNT+$(grep -Enc ".*$LOGDATE.*NOQUEUE: reject.*cannot find your reverse hostname.*" "$1")
 
     # BLACKHOLE
     let BLACKHOLEDMAILCOUNT=$BLACKHOLEDMAILCOUNT+$(grep -Enc ".*$LOGDATE.*Service unavailable.*blocked using.*" "$1")
 
     # OUTGOING
-    let SENTMAILCOUNT=$SENTMAILCOUNT+$(grep -Enc ".*$LOGDATE.*postfix/smtp.*status=sent.*" "$1")
-    let BOUNCEDMAILCOUNT=$BOUNCEDMAILCOUNT+$(grep -Enc ".*$LOGDATE.*postfix/smtp.*status=bounced.*" "$1")
+    let SENTMAILCOUNT=$SENTMAILCOUNT+$(grep -Pnc ".*$LOGDATE.*relay=(?=.*\[[0-9\.\:A-z]*\]).*status=sent.*" "$1")
+    let BOUNCEDMAILCOUNT=$BOUNCEDMAILCOUNT+$(grep -Pnc ".*$LOGDATE.*relay=(?=.*\[[0-9\.\:A-z]*\]).*status=bounced.*" "$1")
 
     # SPAMASSASSIN
     let TESTEDMAILCOUNT=$TESTEDMAILCOUNT+$(grep -Enc ".*$LOGDATE.*spamd: checking message.*" "$1")

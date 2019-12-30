@@ -224,7 +224,7 @@
         </tr>
         <tr class="even0">
             <td class=left>IMAP Logins using WebInterface</td>
-            <td>$IMAPWEBLOGINCOUNT</td>
+            <td>$IMAPLOCALLOGINCOUNT</td>
         </tr>
         <tr>
             <th colspan=2>POP3</th>
@@ -247,7 +247,7 @@
         </tr>
         <tr class="even0">
             <td class=left>POP3 Logins using WebInterface</td>
-            <td>$POP3WEBLOGINCOUNT</td>
+            <td>$POP3LOCALLOGINCOUNT</td>
         </tr>
         <tr>
             <th colspan=2>Outgoing E-Mails</th>
@@ -280,8 +280,12 @@
             <td>$RELAYDENIED</td>
         </tr>
         <tr class="even0">
-            <td class=left>Postfix can not find a PTR Record</td>
+            <td class=left>Postfix could not find a valid PTR Record</td>
             <td>$NOPTRCOUNT</td>
+        </tr>
+        <tr class="odd0">
+            <td class=left>Postfix could not find a valid A or AAAA record for the sender Domain</td>
+            <td>$NODOMAINCOUNT</td>
         </tr>
         <tr>
             <th colspan=2>Blackhole</th>
