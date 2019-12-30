@@ -131,7 +131,7 @@ DOVECOT=$STOPPED
 OPENDKIM=$STOPPED
 RSPAMD=$STOPPED
 
-if (($(pgrep -c "smtpd") > 0)); then
+if (($(pgrep -c "master") > 0)); then
     POSTFIX=$RUNNING
 fi
 if (($(pgrep -c "rspamd") > 0)); then
