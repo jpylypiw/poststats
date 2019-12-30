@@ -17,6 +17,7 @@
 # Basic Variables and Configuration
 SCRIPTPATH=$(dirname "$0")
 LOGDATE=$(date -d "yesterday" +"%b %e")
+LOGDATERSPAMD=$(date -d "yesterday" +"%Y-%m-%d")
 IPV4ADDRESS=$(/sbin/ifconfig | grep 'inet ' | awk '{ print $2}')
 IPV6ADDRESS=$(/sbin/ifconfig | grep '.*inet6 .*global.*' | awk '{ print $2}')
 source "$SCRIPTPATH/poststats.cfg"
@@ -105,12 +106,12 @@ function analyzeFile() {
     let HAMCOUNT=$HAMCOUNT+$(grep -Enc ".*$LOGDATE.*spamd: clean message.*" "$1")
 
     # RSPAMD
-    let RSPAMD_REJECTED=$RSPAMD_REJECTED+$(grep -Enc ".*$LOGDATE.* (reject):.*" "$1")
-    let RSPAMD_ADD_HEADER=$RSPAMD_ADD_HEADER+$(grep -Enc ".*$LOGDATE.* (add header):.*" "$1")
-    let RSPAMD_GREYLIST=$RSPAMD_GREYLIST+$(grep -Enc ".*$LOGDATE.* (greylist):.*" "$1")
-    let RSPAMD_NO_ACTION=$RSPAMD_NO_ACTION+$(grep -Enc ".*$LOGDATE.* (no action):.*" "$1")
-    let RSPAMD_SOFT_REJECT=$RSPAMD_SOFT_REJECT+$(grep -Enc ".*$LOGDATE.* (soft reject):.*" "$1")
-    let RSPAMD_REWRITE_SUBJECT=$RSPAMD_REWRITE_SUBJECT+$(grep -Enc ".*$LOGDATE.* (rewrite subject):.*" "$1")
+    let RSPAMD_REJECTED=$RSPAMD_REJECTED+$(grep -Enc "$LOGDATERSPAMD.*default\: . \(reject\)\:.*" "$1")
+    let RSPAMD_ADD_HEADER=$RSPAMD_ADD_HEADER+$(grep -Enc "$LOGDATERSPAMD.*default\: . \(add header)\:.*" "$1")
+    let RSPAMD_GREYLIST=$RSPAMD_GREYLIST+$(grep -Enc "$LOGDATERSPAMD.*default\: . \(greylist)\:.*" "$1")
+    let RSPAMD_NO_ACTION=$RSPAMD_NO_ACTION+$(grep -Enc "$LOGDATERSPAMD.*default\: . \(no action)\:.*" "$1")
+    let RSPAMD_SOFT_REJECT=$RSPAMD_SOFT_REJECT+$(grep -Enc "$LOGDATERSPAMD.*default\: . \(soft reject)\:.*" "$1")
+    let RSPAMD_REWRITE_SUBJECT=$RSPAMD_REWRITE_SUBJECT+$(grep -Enc "$LOGDATERSPAMD.*default\: . \(rewrite subject)\:.*" "$1")
 }
 
 for logfile in "${LOGFILES[@]}"; do
